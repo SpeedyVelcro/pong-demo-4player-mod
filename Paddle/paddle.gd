@@ -1,17 +1,20 @@
 extends Area2D
 
 const MOVE_SPEED = 200
+const MOVE_TO_CENTER_SPEED = 1
 enum Side {LEFT, RIGHT, TOP, BOTTOM}
 export(Side) var player
 
 var _ball_dir
 var _up # Left for horizontal paddles
 var _down # Right for horizontal paddles
+var start_position
 
 onready var _screen_size_y = get_viewport_rect().size.y
 onready var _screen_size_x = get_viewport_rect().size.x
 
 func _ready():
+	start_position = position
 	match player:
 		Side.LEFT:
 			_up = "left_move_up"
@@ -40,6 +43,15 @@ func _process(delta):
 		position.x += move
 	position.y = clamp(position.y, 64, _screen_size_y - 64)
 	position.x = clamp(position.x, 64, _screen_size_x - 64)
+	match player:
+		Side.LEFT:
+			position += Vector2.RIGHT * delta * MOVE_TO_CENTER_SPEED
+		Side.RIGHT:
+			position += Vector2.LEFT * delta * MOVE_TO_CENTER_SPEED
+		Side.TOP:
+			position += Vector2.DOWN * delta * MOVE_TO_CENTER_SPEED
+		Side.BOTTOM:
+			position += Vector2.UP * delta * MOVE_TO_CENTER_SPEED
 
 
 func _on_area_entered(area):
@@ -52,3 +64,7 @@ func _on_area_entered(area):
 		else:
 			new_velocity = Vector2(parallel_speed, _ball_dir)
 		area.direction = new_velocity.normalized()
+
+
+func _on_Ball_reset():
+	position = start_position

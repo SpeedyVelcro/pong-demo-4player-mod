@@ -5,6 +5,7 @@ const DEFAULT_SPEED = 200
 var _speed = DEFAULT_SPEED
 var direction = Vector2.DOWN
 var moving = false
+signal reset
 
 onready var _initial_pos = position
 
@@ -34,3 +35,4 @@ func reset():
 	direction = direction.normalized()
 	position = _initial_pos
 	_speed = DEFAULT_SPEED
+	emit_signal("reset")

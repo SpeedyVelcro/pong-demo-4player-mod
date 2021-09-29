@@ -195,6 +195,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="reset" from="Ball" to="BottomPaddle" method="_on_Ball_reset"]
+[connection signal="reset" from="Ball" to="TopPaddle" method="_on_Ball_reset"]
+[connection signal="reset" from="Ball" to="RightPaddle" method="_on_Ball_reset"]
+[connection signal="reset" from="Ball" to="LeftPaddle" method="_on_Ball_reset"]
 [connection signal="area_entered" from="LeftWall" to="LeftWall" method="_on_area_entered"]
 [connection signal="lost_ball" from="LeftWall" to="." method="_on_LeftWall_lost_ball"]
 [connection signal="area_entered" from="RightWall" to="RightWall" method="_on_area_entered"]
