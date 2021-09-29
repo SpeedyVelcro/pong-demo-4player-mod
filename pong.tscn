@@ -1,0 +1,208 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Paddle/Paddle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Font/ScoreFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://pong.gd" type="Script" id=3]
+[ext_resource path="res://logic/ball.gd" type="Script" id=4]
+[ext_resource path="res://ball.png" type="Texture" id=5]
+[ext_resource path="res://logic/wall.gd" type="Script" id=7]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 32, 4 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4, 4 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 320 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 332.641, 10 )
+
+[node name="Pong" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 640.0
+margin_bottom = 640.0
+color = Color( 0.141176, 0.152941, 0.164706, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftPaddle" parent="." instance=ExtResource( 1 )]
+position = Vector2( 64, 320 )
+
+[node name="RightPaddle" parent="." instance=ExtResource( 1 )]
+modulate = Color( 1, 0, 1, 1 )
+position = Vector2( 576, 320 )
+player = 1
+
+[node name="TopPaddle" parent="." instance=ExtResource( 1 )]
+modulate = Color( 0, 1, 0.027451, 1 )
+position = Vector2( 320, 64 )
+player = 2
+
+[node name="Sprite" parent="TopPaddle" index="0"]
+rotation = 1.5708
+
+[node name="Collision" parent="TopPaddle" index="1"]
+shape = SubResource( 4 )
+
+[node name="BottomPaddle" parent="." instance=ExtResource( 1 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 320, 576 )
+player = 3
+
+[node name="Sprite" parent="BottomPaddle" index="0"]
+rotation = 1.5708
+
+[node name="Collision" parent="BottomPaddle" index="1"]
+shape = SubResource( 4 )
+
+[node name="Ball" type="Area2D" parent="."]
+position = Vector2( 320.5, 191.124 )
+script = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="Ball"]
+texture = ExtResource( 5 )
+
+[node name="Collision" type="CollisionShape2D" parent="Ball"]
+shape = SubResource( 1 )
+
+[node name="LeftWall" type="Area2D" parent="."]
+position = Vector2( -10, 320 )
+script = ExtResource( 7 )
+
+[node name="Collision" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource( 2 )
+
+[node name="RightWall" type="Area2D" parent="."]
+position = Vector2( 650, 320 )
+script = ExtResource( 7 )
+
+[node name="Collision" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource( 2 )
+
+[node name="TopWall" type="Area2D" parent="."]
+position = Vector2( 320, -10 )
+script = ExtResource( 7 )
+
+[node name="Collision" type="CollisionShape2D" parent="TopWall"]
+shape = SubResource( 3 )
+
+[node name="BottomWall" type="Area2D" parent="."]
+position = Vector2( 320, 650 )
+script = ExtResource( 7 )
+
+[node name="Collision" type="CollisionShape2D" parent="BottomWall"]
+shape = SubResource( 3 )
+
+[node name="LeftScoreLabel" type="Label" parent="."]
+margin_left = -14.9977
+margin_top = 306.949
+margin_right = 47.0023
+margin_bottom = 457.949
+custom_fonts/font = ExtResource( 2 )
+text = "0
+"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightScoreLabel" type="Label" parent="."]
+margin_left = 592.999
+margin_top = 308.95
+margin_right = 657.999
+margin_bottom = 456.95
+custom_fonts/font = ExtResource( 2 )
+text = "0
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopScoreLabel" type="Label" parent="."]
+margin_left = 288.0
+margin_top = 20.9582
+margin_right = 353.0
+margin_bottom = 119.958
+custom_fonts/font = ExtResource( 2 )
+text = "0
+"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomScoreLabel" type="Label" parent="."]
+margin_left = 287.999
+margin_top = 593.92
+margin_right = 354.999
+margin_bottom = 735.92
+custom_fonts/font = ExtResource( 2 )
+text = "0
+"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftInstruction" type="Label" parent="."]
+margin_left = 88.0
+margin_top = 287.333
+margin_right = 128.0
+margin_bottom = 352.333
+text = "W
+
+
+S"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightInstruction" type="Label" parent="."]
+margin_left = 509.333
+margin_top = 287.333
+margin_right = 549.333
+margin_bottom = 352.333
+text = "Up
+
+
+Down"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopInstruction" type="Label" parent="."]
+margin_left = 293.207
+margin_top = 85.9822
+margin_right = 349.207
+margin_bottom = 150.982
+text = "X          C"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomInstruction" type="Label" parent="."]
+margin_left = 289.874
+margin_top = 544.45
+margin_right = 351.874
+margin_bottom = 609.45
+text = "N          M"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="area_entered" from="LeftWall" to="LeftWall" method="_on_area_entered"]
+[connection signal="lost_ball" from="LeftWall" to="." method="_on_LeftWall_lost_ball"]
+[connection signal="area_entered" from="RightWall" to="RightWall" method="_on_area_entered"]
+[connection signal="lost_ball" from="RightWall" to="." method="_on_RightWall_lost_ball"]
+[connection signal="area_entered" from="TopWall" to="TopWall" method="_on_area_entered"]
+[connection signal="lost_ball" from="TopWall" to="." method="_on_TopWall_lost_ball"]
+[connection signal="area_entered" from="BottomWall" to="BottomWall" method="_on_area_entered"]
+[connection signal="lost_ball" from="BottomWall" to="." method="_on_BottomWall_lost_ball"]
+
+[editable path="TopPaddle"]
+[editable path="BottomPaddle"]
