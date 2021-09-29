@@ -1,7 +1,7 @@
 extends Area2D
 
 const MOVE_SPEED = 200
-const MOVE_TO_CENTER_SPEED = 1
+const MOVE_TO_CENTER_SPEED = 1.0
 enum Side {LEFT, RIGHT, TOP, BOTTOM}
 export(Side) var player
 
@@ -9,6 +9,7 @@ var _ball_dir
 var _up # Left for horizontal paddles
 var _down # Right for horizontal paddles
 var start_position
+var paddles_started = false
 
 onready var _screen_size_y = get_viewport_rect().size.y
 onready var _screen_size_x = get_viewport_rect().size.x
@@ -34,6 +35,10 @@ func _ready():
 			_ball_dir = -1
 
 func _process(delta):
+	if Input.is_action_just_pressed("ui_select"):
+		paddles_started = true
+	if not paddles_started:
+		return
 	# Move up and down based on input.
 	var input = Input.get_action_strength(_down) - Input.get_action_strength(_up)
 	var move = input * MOVE_SPEED * delta
