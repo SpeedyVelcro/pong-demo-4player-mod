@@ -1,6 +1,8 @@
 # 4 Player Mod for Pong with GDScript
 This is a mod of the Godot GDScript pong demo found [here](https://github.com/godotengine/godot-demo-projects/tree/3.3-f9333dc/2d/pong). It primarily changes it into a 4-player free-for-all.
 
+**PRESS SPACE TO START THE GAME!**
+
 # A note about quality
 Yeah code quality is basically non-existent. I was really just messing around here and bodging it all together. And you'll notice the control scheme for controllers is extremely bizzare. That's because at the gamedev meeting where I made this we thought it would be funny if you had to play it like Twister with everyone using one controller. So good luck.
 
