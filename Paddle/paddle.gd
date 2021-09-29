@@ -37,8 +37,6 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_select"):
 		paddles_started = true
-	if not paddles_started:
-		return
 	# Move up and down based on input.
 	var input = Input.get_action_strength(_down) - Input.get_action_strength(_up)
 	var move = input * MOVE_SPEED * delta
@@ -48,15 +46,17 @@ func _process(delta):
 		position.x += move
 	position.y = clamp(position.y, 64, _screen_size_y - 64)
 	position.x = clamp(position.x, 64, _screen_size_x - 64)
-	match player:
-		Side.LEFT:
-			position += Vector2.RIGHT * delta * MOVE_TO_CENTER_SPEED
-		Side.RIGHT:
-			position += Vector2.LEFT * delta * MOVE_TO_CENTER_SPEED
-		Side.TOP:
-			position += Vector2.DOWN * delta * MOVE_TO_CENTER_SPEED
-		Side.BOTTOM:
-			position += Vector2.UP * delta * MOVE_TO_CENTER_SPEED
+	# Drift to center
+	if paddles_started:
+		match player:
+			Side.LEFT:
+				position += Vector2.RIGHT * delta * MOVE_TO_CENTER_SPEED
+			Side.RIGHT:
+				position += Vector2.LEFT * delta * MOVE_TO_CENTER_SPEED
+			Side.TOP:
+				position += Vector2.DOWN * delta * MOVE_TO_CENTER_SPEED
+			Side.BOTTOM:
+				position += Vector2.UP * delta * MOVE_TO_CENTER_SPEED
 
 
 func _on_area_entered(area):

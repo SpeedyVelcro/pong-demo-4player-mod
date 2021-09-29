@@ -11,6 +11,13 @@ func _ready():
 	score_label[PLAYER_TOP] = get_node("TopScoreLabel")
 	score_label[PLAYER_BOTTOM] = get_node("BottomScoreLabel")
 
+func _process(_delta):
+	if Input.is_action_just_pressed("ui_select"):
+		$LeftInstruction.set_visible(false)
+		$RightInstruction.set_visible(false)
+		$TopInstruction.set_visible(false)
+		$BottomInstruction.set_visible(false)
+
 func _on_LeftWall_lost_ball():
 	add_score_except(PLAYER_LEFT, GOAL_VALUE)
 
